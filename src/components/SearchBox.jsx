@@ -6,7 +6,7 @@ function SearchBox({ query, setQuery }) {
       className="search"
       type="text"
       placeholder="Search movies..."
-      value={query === null ? "" : query}
+      value={query ?? ""}
       onChange={(e) => setQuery(e.target.value)}
     />
   );
