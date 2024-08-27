@@ -65,10 +65,8 @@ export default function App() {
   const [watched, setWatched] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
-  const tempQuery = "interstellar";
   const [query, setQuery] = useState(null);
   const [selectedID, setSelectedID] = useState(null);
-  // const [query, setQuery] = useState("");
 
   function handleSelectedMovie(id) {
     // id === selectedID ? handleCloseMovie() : setSelectedID(id);
@@ -80,6 +78,8 @@ export default function App() {
   }
 
   function handleAddWatched(movie) {
+    if (watched.some((watchedMovie) => watchedMovie.imdbId === movie.imdbId))
+      return;
     setWatched((watched) => [...watched, movie]);
   }
 
