@@ -20,15 +20,15 @@ function WatchedSummery({ watched }) {
         </p>
         <p>
           <span>⭐️</span>
-          <span>{avgImdbRating}</span>
+          <span>{!isNaN(avgImdbRating) ? avgImdbRating : "0.00"}</span>
         </p>
         <p>
           <span>🌟</span>
-          <span>{avgUserRating}</span>
+          <span>{!isNaN(avgUserRating) ? avgUserRating : "0.00"}</span>
         </p>
         <p>
           <span>⏳</span>
-          <span>{avgRuntime} min</span>
+          <span>{!isNaN(avgUserRating) ? avgUserRating : "0"} min</span>
         </p>
       </div>
     </div>

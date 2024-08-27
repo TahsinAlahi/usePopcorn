@@ -78,9 +78,13 @@ export default function App() {
   }
 
   function handleAddWatched(movie) {
-    if (watched.some((watchedMovie) => watchedMovie.imdbId === movie.imdbId))
-      return;
+    // if (watched.some((watchedMovie) => watchedMovie.imdbID === movie.imdbID))
+    //   return;
     setWatched((watched) => [...watched, movie]);
+  }
+
+  function handleDeletedWatched(id) {
+    setWatched((watched) => watched.filter((movie) => movie.imdbID !== id));
   }
 
   useEffect(() => {
@@ -135,11 +139,15 @@ export default function App() {
               selectedID={selectedID}
               onCloseMovie={handleCloseMovie}
               onAddWatched={handleAddWatched}
+              watched={watched}
             />
           ) : (
             <>
               <WatchedSummery watched={watched} />
-              <WatchedMovieList watched={watched} />
+              <WatchedMovieList
+                onDeleteWatched={handleDeletedWatched}
+                watched={watched}
+              />
             </>
           )}
         </Box>

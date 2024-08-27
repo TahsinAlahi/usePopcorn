@@ -3,10 +3,16 @@ import StarRating from "./StarRating.jsx";
 import Loader from "./Loader";
 
 const KEY = "6b9c5145";
-function MovieDetails({ selectedID, onCloseMovie, onAddWatched }) {
+function MovieDetails({ selectedID, onCloseMovie, onAddWatched, watched }) {
   const [movie, setMovie] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [userRating, setUserRating] = useState(0);
+  const isWatched = watched
+    .map((watchedMovie) => watchedMovie.imdbID)
+    .includes(selectedID);
+  const watchedUserRating = watched.find(
+    (watched) => watched.imdbID === selectedID
+  )?.userRating;
 
   useEffect(() => {
     async function getMovieDetails() {
@@ -40,7 +46,7 @@ function MovieDetails({ selectedID, onCloseMovie, onAddWatched }) {
 
   function handleAdd() {
     const newWatchedMovie = {
-      imdbId: selectedID,
+      imdbID: selectedID,
       title,
       year,
       poster,
@@ -80,16 +86,25 @@ function MovieDetails({ selectedID, onCloseMovie, onAddWatched }) {
 
           <section>
             <div className="rating">
-              <StarRating
-                defaultRating={Number(imdbRating)}
-                maxRating={10}
-                size={24}
-                onSetRating={(rating) => setUserRating(rating)}
-              />
-              {userRating > 0 && (
-                <button className="btn-add" onClick={handleAdd}>
-                  + Add to list
-                </button>
+              {!isWatched ? (
+                <>
+                  <StarRating
+                    defaultRating={Number(imdbRating)}
+                    maxRating={10}
+                    size={24}
+                    onSetRating={(rating) => setUserRating(rating)}
+                  />
+                  {userRating > 0 && (
+                    <button className="btn-add" onClick={handleAdd}>
+                      + Add to list
+                    </button>
+                  )}
+                </>
+              ) : (
+                <p>
+                  You already rated this movie {watchedUserRating}
+                  <span>⭐</span>
+                </p>
               )}
             </div>
             <p>
