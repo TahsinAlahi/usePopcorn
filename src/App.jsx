@@ -104,7 +104,7 @@ export default function App() {
       }
     }
 
-    if (query.length < 4) {
+    if (query?.length < 4) {
       setMovies([]);
       setError("");
     }
