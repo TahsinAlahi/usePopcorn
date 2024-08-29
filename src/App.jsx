@@ -106,6 +106,7 @@ export default function App() {
         const data = await res.json();
         if (data.Response === "False") throw new Error("Movie not found");
 
+        // console.log(data);
         setMovies(data.Search);
       } catch (err) {
         setError(err.message);

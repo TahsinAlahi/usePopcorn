@@ -28,7 +28,7 @@ function WatchedSummery({ watched }) {
         </p>
         <p>
           <span>⏳</span>
-          <span>{!isNaN(avgUserRating) ? avgUserRating : "0"} min</span>
+          <span>{!isNaN(avgRuntime) ? avgRuntime : "0"} min</span>
         </p>
       </div>
     </div>
