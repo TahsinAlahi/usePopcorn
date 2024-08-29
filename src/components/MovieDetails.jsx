@@ -31,6 +31,12 @@ function MovieDetails({ selectedID, onCloseMovie, onAddWatched, watched }) {
     getMovieDetails();
   }, [selectedID]);
 
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Escape") onCloseMovie();
+    });
+  }, [onCloseMovie]);
+
   const {
     Title: title,
     Year: year,
@@ -58,6 +64,12 @@ function MovieDetails({ selectedID, onCloseMovie, onAddWatched, watched }) {
     onAddWatched(newWatchedMovie);
     onCloseMovie();
   }
+
+  useEffect(() => {
+    document.title = title;
+
+    return () => (document.title = "usePopcorn");
+  }, [title]);
 
   return (
     <div className="details">
