@@ -15,7 +15,9 @@ const KEY = "6b9c5145";
 
 export default function App() {
   const [movies, setMovies] = useState([]);
-  const [watched, setWatched] = useState([]);
+  const [watched, setWatched] = useState(() =>
+    JSON.parse(localStorage.getItem("movie"))
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
   const [query, setQuery] = useState(null);
@@ -41,6 +43,10 @@ export default function App() {
   }
 
   useEffect(() => {
+    localStorage.setItem("movie", JSON.stringify(watched));
+  }, [watched]);
+
+  useEffect(() => {
     const controller = new AbortController();
 
     async function fetchData() {
@@ -50,7 +56,7 @@ export default function App() {
         if (!query) return;
 
         const res = await fetch(
-          ` https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
+          `https://www.omdbapi.com/?apikey=${KEY}&s=${query}`,
           { signal: controller.signal }
         );
 
